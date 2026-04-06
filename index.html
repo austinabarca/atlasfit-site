@@ -259,6 +259,48 @@
       background: rgba(255, 255, 255, 0.04);
     }
 
+    .btn-coming-soon {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.03);
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: default;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.5;
+    }
+
+    .btn-coming-soon svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    .btn-coming-soon .btn-text-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.2;
+    }
+
+    .btn-coming-soon .btn-label {
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-coming-soon .btn-store {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
     .hero-scroll-hint {
       position: absolute;
       bottom: 32px;
@@ -716,6 +758,67 @@
       color: var(--text-secondary);
     }
 
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      border: 1px solid var(--border-default);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-tertiary);
+      transition: color 0.3s, border-color 0.3s, background 0.3s, transform 0.2s;
+    }
+
+    .social-icon:hover {
+      color: var(--text-primary);
+      border-color: rgba(220, 38, 38, 0.4);
+      background: rgba(220, 38, 38, 0.08);
+      transform: translateY(-3px);
+    }
+
+    .social-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border-default);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-tertiary);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .footer-social a:hover {
+      color: var(--text-primary);
+      border-color: var(--border-light);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .footer-social svg {
+      width: 20px;
+      height: 20px;
+    }
+
     .footer-bottom {
       margin-top: 48px;
       padding-top: 24px;
@@ -856,6 +959,7 @@
       <li><a href="#built-for-lifters">Training</a></li>
       <li><a href="#social">Social</a></li>
       <li><a href="#download">Download</a></li>
+      <li><a href="prelaunch.html">Beta</a></li>
     </ul>
     <div class="nav-cta-wrapper">
       <a href="#download" class="nav-cta">Get Atlas</a>
@@ -879,10 +983,20 @@
       The performance-focused training platform built for lifters. AI coaching, live tracking, social community — all in one app.
     </p>
     <div class="hero-buttons fade-in visible">
-      <a href="#download" class="btn-primary">
+      <div class="btn-coming-soon">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        App Store
-      </a>
+        <div class="btn-text-group">
+          <span class="btn-label">Coming soon on</span>
+          <span class="btn-store">App Store</span>
+        </div>
+      </div>
+      <div class="btn-coming-soon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.567l2.834 1.6a1 1 0 0 1 0 1.72l-2.834 1.6-2.535-2.46 2.535-2.46zM5.864 2.658L16.8 9.291l-2.302 2.302-8.634-8.935z"/></svg>
+        <div class="btn-text-group">
+          <span class="btn-label">Coming soon on</span>
+          <span class="btn-store">Google Play</span>
+        </div>
+      </div>
       <a href="#features" class="btn-secondary">
         Learn More ↓
       </a>
@@ -1038,6 +1152,17 @@
       <p class="section-desc">
         Atlas isn't just a tracker — it's a community. Share your journey, find training partners, and stay accountable.
       </p>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/theatlasfit.app/" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@theatlasfit.app" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.73a8.19 8.19 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.16z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61578538457284" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
     </div>
     <div class="social-cards">
       <div class="social-card fade-in fade-in-delay-1">
@@ -1062,17 +1187,27 @@
   <section id="download" class="cta-section">
     <div class="cta-glow"></div>
     <div class="fade-in">
-      <div class="cta-badge">Coming to iOS</div>
+      <div class="cta-badge">Coming to iOS & Android</div>
       <h2 class="section-title">Ready to train smarter?</h2>
       <p class="section-desc">
-        Atlas is launching soon on the App Store. Be among the first to experience AI-powered training.
+        Atlas is launching soon on the App Store and Google Play. Be among the first to experience AI-powered training.
       </p>
     </div>
     <div class="hero-buttons fade-in fade-in-delay-1" style="justify-content: center; margin-top: 48px;">
-      <a href="#" class="btn-primary">
+      <div class="btn-coming-soon">
         <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        Download for iOS
-      </a>
+        <div class="btn-text-group">
+          <span class="btn-label">Coming soon on</span>
+          <span class="btn-store">App Store</span>
+        </div>
+      </div>
+      <div class="btn-coming-soon">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.567l2.834 1.6a1 1 0 0 1 0 1.72l-2.834 1.6-2.535-2.46 2.535-2.46zM5.864 2.658L16.8 9.291l-2.302 2.302-8.634-8.935z"/></svg>
+        <div class="btn-text-group">
+          <span class="btn-label">Coming soon on</span>
+          <span class="btn-store">Google Play</span>
+        </div>
+      </div>
       <a href="mailto:support@atlasfit.app" class="btn-secondary">
         Contact Us
       </a>
@@ -1094,6 +1229,17 @@
       <div class="footer-links">
         <a href="/privacy.html">Privacy Policy</a>
         <a href="/terms.html">Terms of Service</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/theatlasfit.app/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@theatlasfit.app" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.73a8.19 8.19 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.16z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61578538457284" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
       </div>
     </div>
     <div class="footer-bottom">
