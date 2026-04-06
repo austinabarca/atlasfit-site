@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas Beta — Sign Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     PAGE 1 — PRE-LAUNCH (Use today)
+     
+     Email capture is the main CTA.
+     Install buttons are grayed out with "Coming Soon".
+     
+     When beta goes live, swap this section with Page 2.
+     ========================================================= */
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #ffffff;
+  }
+
+  .beta-section {
+    position: relative;
+    padding: 100px 24px;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .beta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(229, 57, 53, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulseGlow 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  }
+
+  .beta-inner {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+    z-index: 1;
+  }
+
+  /* Badge */
+  .beta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 100px;
+    border: 1px solid rgba(229, 57, 53, 0.5);
+    background: rgba(229, 57, 53, 0.08);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #e53935;
+    margin-bottom: 32px;
+    animation: fadeInUp 0.6s ease-out both;
+  }
+
+  .beta-badge .dot {
+    width: 8px;
+    height: 8px;
+    background: #e53935;
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Heading */
+  .beta-heading {
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+    animation: fadeInUp 0.6s ease-out 0.1s both;
+  }
+
+  .beta-heading span {
+    background: linear-gradient(135deg, #e53935, #ff6f61);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Subtext */
+  .beta-subtext {
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 40px;
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+  }
+
+  /* ── Email Form (PRIMARY CTA) ────────────────────────── */
+  .beta-form {
+    display: flex;
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto 16px;
+    animation: fadeInUp 0.6s ease-out 0.25s both;
+  }
+
+  .beta-input {
+    flex: 1;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .beta-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .beta-input:focus {
+    border-color: rgba(229, 57, 53, 0.6);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .beta-button {
+    padding: 16px 32px;
+    border-radius: 12px;
+    border: none;
+    background: #e53935;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+
+  .beta-button:hover {
+    background: #c62828;
+  }
+
+  .beta-button:active {
+    transform: scale(0.97);
+  }
+
+  .beta-note {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 48px;
+    animation: fadeInUp 0.6s ease-out 0.3s both;
+  }
+
+  /* Success state */
+  .beta-success {
+    display: none;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    background: rgba(76, 175, 80, 0.08);
+    color: #81c784;
+    font-size: 16px;
+    font-weight: 500;
+    max-width: 480px;
+    margin: 0 auto 16px;
+  }
+
+  .beta-success.show {
+    display: block;
+    animation: fadeInUp 0.4s ease-out;
+  }
+
+  .beta-form.hidden { display: none; }
+  .beta-note.hidden { display: none; }
+
+  /* ── Grayed-Out Install Buttons ──────────────────────── */
+  .beta-coming-label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    animation: fadeInUp 0.6s ease-out 0.35s both;
+  }
+
+  .beta-install-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.6s ease-out 0.4s both;
+  }
+
+  .beta-install-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    cursor: default;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.5;
+  }
+
+  .beta-install-btn svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  .beta-install-btn .btn-text-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.2;
+  }
+
+  .beta-install-btn .btn-label {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  .beta-install-btn .btn-store {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  /* Stats row */
+  .beta-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 56px;
+    animation: fadeInUp 0.6s ease-out 0.5s both;
+  }
+
+  .beta-stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .beta-stat-number span { color: #e53935; }
+
+  .beta-stat-label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 520px) {
+    .beta-form { flex-direction: column; }
+    .beta-install-row { flex-direction: column; align-items: center; }
+    .beta-install-btn { width: 100%; max-width: 260px; justify-content: center; }
+    .beta-stats { gap: 32px; }
+    .beta-section { padding: 72px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE 1: PRE-LAUNCH — COPY FROM HERE ↓
+     ════════════════════════════════════════════════════════ -->
+<section class="beta-section" id="beta">
+  <div class="beta-inner">
+
+    <div class="beta-badge">
+      <span class="dot"></span>
+      Beta Dropping This Week
+    </div>
+
+    <h2 class="beta-heading">Be the first to <span>Bear the Weight.</span></h2>
+
+    <p class="beta-subtext">
+      Our external beta launches this week. Drop your email 
+      and we'll send you download instructions the moment it's live — 
+      available on both iOS and Android.
+    </p>
+
+    <!-- Success message -->
+    <div class="beta-success" id="betaSuccess">
+      You're in. We'll send you the download link as soon as beta drops.
+    </div>
+
+    <!-- Email form — primary CTA -->
+    <form class="beta-form" id="betaForm" action="https://formspree.io/f/xwvwadzb" method="POST">
+      <input 
+        type="email" 
+        name="email" 
+        class="beta-input" 
+        placeholder="Enter your email" 
+        required 
+        autocomplete="email"
+      />
+      <button type="submit" class="beta-button">Get Early Access</button>
+    </form>
+
+    <p class="beta-note" id="betaNote">We'll email you the links when beta goes live · No spam, ever</p>
+
+    <!-- Grayed-out install buttons -->
+    <p class="beta-coming-label">Coming soon to</p>
+
+    <div class="beta-install-row">
+      <div class="beta-install-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+        </svg>
+        <div class="btn-text-group">
+          <span class="btn-label">Coming soon on</span>
+          <span class="btn-store">TestFlight</span>
+        </div>
+      </div>
+      <div class="beta-install-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.567l2.834 1.6a1 1 0 0 1 0 1.72l-2.834 1.6-2.535-2.46 2.535-2.46zM5.864 2.658L16.8 9.291l-2.302 2.302-8.634-8.935z"/>
+        </svg>
+        <div class="btn-text-group">
+          <span class="btn-label">Coming soon on</span>
+          <span class="btn-store">Google Play</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="beta-stats">
+      <div class="beta-stat">
+        <div class="beta-stat-number">200<span>+</span></div>
+        <div class="beta-stat-label">Exercises</div>
+      </div>
+      <div class="beta-stat">
+        <div class="beta-stat-number">AI</div>
+        <div class="beta-stat-label">Coaching</div>
+      </div>
+      <div class="beta-stat">
+        <div class="beta-stat-number">5</div>
+        <div class="beta-stat-label">Post Types</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ════════════════════════════════════════════════════════
+     PAGE 1: PRE-LAUNCH — COPY TO HERE ↑
+     ════════════════════════════════════════════════════════ -->
+
+<script>
+  const form = document.getElementById('betaForm');
+  const successMsg = document.getElementById('betaSuccess');
+  const note = document.getElementById('betaNote');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('.beta-button');
+    const originalText = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.classList.add('hidden');
+        note.classList.add('hidden');
+        successMsg.classList.add('show');
+      } else {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        alert('Something went wrong — try again.');
+      }
+    } catch (err) {
+      btn.textContent = originalText;
+      btn.disabled = false;
+      alert('Connection error — try again.');
+    }
+  });
+</script>
+
+</body>
+</html>
