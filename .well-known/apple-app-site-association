@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["RQRU6Y495Z.app.atlasfit.mobile"],
+        "components": [
+          {
+            "/": "/templates/*",
+            "comment": "Shared workout templates deep-link into Atlas"
+          }
+        ]
+      }
+    ]
+  }
+}
