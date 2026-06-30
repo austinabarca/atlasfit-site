@@ -5,8 +5,8 @@
       "namespace": "android_app",
       "package_name": "app.atlasfit.mobile",
       "sha256_cert_fingerprints": [
-        "REPLACE_WITH_PLAY_APP_SIGNING_SHA256",
-        "REPLACE_WITH_EAS_UPLOAD_KEY_SHA256_OPTIONAL"
+        "54:2A:9D:16:64:EB:55:A2:3B:39:EA:CE:E4:A8:B4:94:65:8F:33:A4:02:2E:31:E2:B1:F0:05:CE:F2:55:88:16",
+        "53:2C:1C:5E:14:E4:0D:D8:D9:EC:CE:29:8A:59:7F:F7:06:88:82:67:80:47:2A:6C:66:0C:4E:06:8C:88:F9:E4"
       ]
     }
   }
