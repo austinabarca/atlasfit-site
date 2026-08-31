@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmed · Atlas</title>
+  <meta name="theme-color" content="#0A0A0A">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Your Atlas account is confirmed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0A0A0A;
+      --bg-secondary: #141414;
+      --text-primary: #FFFFFF;
+      --text-secondary: #A1A1AA;
+      --text-tertiary: #71717A;
+      --accent-red: #DC2626;
+      --accent-red-light: #EF4444;
+      --accent-gold: #F59E0B;
+      --border-default: #27272A;
+      --border-light: #3F3F46;
+    }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px 24px;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    .glow {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, rgba(245, 158, 11, 0.06) 40%, transparent 70%);
+      pointer-events: none;
+      animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: translate(-50%, -55%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -55%) scale(1.08); }
+    }
+    .card { position: relative; z-index: 1; max-width: 440px; width: 100%; }
+    .brand {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 20px; font-weight: 800; letter-spacing: -0.5px;
+      margin-bottom: 40px;
+    }
+    .brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-red); }
+    .check {
+      width: 72px; height: 72px; border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-gold) 100%);
+      box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.10), 0 12px 32px rgba(220, 38, 38, 0.28);
+      animation: pop 0.5s cubic-bezier(0.2, 1.2, 0.4, 1) both;
+    }
+    .check svg { width: 34px; height: 34px; stroke: #FFFFFF; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .check svg path { stroke-dasharray: 32; stroke-dashoffset: 32; animation: draw 0.45s ease-out 0.25s forwards; }
+    @keyframes pop { from { opacity: 0; transform: scale(0.75); } to { opacity: 1; transform: scale(1); } }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 980px;
+      border: 1px solid var(--border-default); background: var(--bg-secondary);
+      font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--accent-gold); margin-bottom: 24px;
+    }
+    h1 {
+      font-size: clamp(28px, 7vw, 40px); font-weight: 900;
+      letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px;
+    }
+    h1 .grad {
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-red-light) 50%, var(--accent-gold) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    p.sub { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; }
+    .btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; padding: 16px 28px; border-radius: 14px;
+      font-size: 16px; font-weight: 600; margin-bottom: 14px;
+      transition: transform 0.15s, opacity 0.15s, background 0.2s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--text-primary); color: var(--bg-primary); }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-secondary { border: 1px solid var(--border-light); color: var(--text-primary); background: transparent; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.04); }
+    .hint { font-size: 13px; color: var(--text-tertiary); margin-top: 20px; line-height: 1.5; }
+    @media (prefers-reduced-motion: reduce) {
+      .glow, .check, .check svg path { animation: none; }
+      .check svg path { stroke-dashoffset: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+
+  <div class="card">
+    <a href="/" class="brand"><span class="dot"></span>Atlas</a>
+
+    <div class="check" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4.5 12.5 L9.5 17.5 L19.5 7"/></svg>
+    </div>
+
+    <div class="badge">Confirmed</div>
+    <h1>You're <span class="grad">all set</span></h1>
+    <p class="sub">Your email has been verified. Head back to the Atlas app to keep going &mdash; you can safely close this page.</p>
+
+    <a href="atlas://" class="btn btn-primary">Open Atlas</a>
+    <a href="/" class="btn btn-secondary">Visit atlasfit.app</a>
+
+    <p class="hint">Don't have the app yet? <a href="/beta.html" style="color: var(--text-secondary); text-decoration: underline;">Join the beta</a>. Need a hand? <a href="mailto:support@atlasfit.app" style="color: var(--text-secondary); text-decoration: underline;">support@atlasfit.app</a></p>
+  </div>
+</body>
+</html>
