@@ -37,6 +37,7 @@
       padding: 32px 24px;
       overflow-x: hidden;
     }
+    [hidden] { display: none !important; }
     a { color: inherit; text-decoration: none; }
     .glow {
       position: fixed;
@@ -59,16 +60,25 @@
       margin-bottom: 40px;
     }
     .brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-red); }
-    .check {
+    .icon {
       width: 72px; height: 72px; border-radius: 50%;
       margin: 0 auto 24px;
       display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-gold) 100%);
-      box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.10), 0 12px 32px rgba(220, 38, 38, 0.28);
       animation: pop 0.5s cubic-bezier(0.2, 1.2, 0.4, 1) both;
     }
-    .check svg { width: 34px; height: 34px; stroke: #FFFFFF; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .check svg path { stroke-dasharray: 32; stroke-dashoffset: 32; animation: draw 0.45s ease-out 0.25s forwards; }
+    .icon svg { width: 34px; height: 34px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-check {
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-gold) 100%);
+      box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.10), 0 12px 32px rgba(220, 38, 38, 0.28);
+    }
+    .icon-check svg { stroke: #FFFFFF; stroke-width: 3.2; }
+    .icon-check svg path { stroke-dasharray: 32; stroke-dashoffset: 32; animation: draw 0.45s ease-out 0.25s forwards; }
+    .icon-clock {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      box-shadow: 0 0 0 8px rgba(245, 158, 11, 0.10), 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+    .icon-clock svg { stroke: var(--accent-gold); stroke-width: 2.6; }
     @keyframes pop { from { opacity: 0; transform: scale(0.75); } to { opacity: 1; transform: scale(1); } }
     @keyframes draw { to { stroke-dashoffset: 0; } }
     .badge {
@@ -87,6 +97,8 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     p.sub { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; }
+    p.sub + p.desc { margin-top: -24px; }
+    p.desc { font-size: 13px; color: var(--text-tertiary); line-height: 1.5; margin-bottom: 36px; }
     .btn {
       display: flex; align-items: center; justify-content: center;
       width: 100%; padding: 16px 28px; border-radius: 14px;
@@ -99,9 +111,10 @@
     .btn-secondary { border: 1px solid var(--border-light); color: var(--text-primary); background: transparent; }
     .btn-secondary:hover { background: rgba(255,255,255,0.04); }
     .hint { font-size: 13px; color: var(--text-tertiary); margin-top: 20px; line-height: 1.5; }
+    .hint a { color: var(--text-secondary); text-decoration: underline; }
     @media (prefers-reduced-motion: reduce) {
-      .glow, .check, .check svg path { animation: none; }
-      .check svg path { stroke-dashoffset: 0; }
+      .glow, .icon, .icon-check svg path { animation: none; }
+      .icon-check svg path { stroke-dashoffset: 0; }
     }
   </style>
 </head>
@@ -111,18 +124,78 @@
   <div class="card">
     <a href="/" class="brand"><span class="dot"></span>Atlas</a>
 
-    <div class="check" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path d="M4.5 12.5 L9.5 17.5 L19.5 7"/></svg>
+    <!-- Default state. Shown when Supabase redirects here after a successful verification. -->
+    <div id="state-success">
+      <div class="icon icon-check" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M4.5 12.5 L9.5 17.5 L19.5 7"/></svg>
+      </div>
+
+      <div class="badge">Confirmed</div>
+      <h1>You're <span class="grad">all set</span></h1>
+      <p class="sub">Your email has been verified. Head back to the Atlas app to keep going &mdash; you can safely close this page.</p>
     </div>
 
-    <div class="badge">Confirmed</div>
-    <h1>You're <span class="grad">all set</span></h1>
-    <p class="sub">Your email has been verified. Head back to the Atlas app to keep going &mdash; you can safely close this page.</p>
+    <!-- Error state. Supabase appends error / error_code / error_description to the URL
+         fragment (or query string on PKCE flows) when a link is expired or superseded. -->
+    <div id="state-error" hidden>
+      <div class="icon icon-clock" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5 V12 L15.2 14"/></svg>
+      </div>
+
+      <div class="badge" id="error-badge">Link expired</div>
+      <h1 id="error-title">This link <span class="grad">expired</span></h1>
+      <p class="sub" id="error-sub">Open the Atlas app and tap <strong>Resend</strong> to get a fresh link. Links only work for a short while, and each Resend replaces the earlier one.</p>
+      <p class="desc" id="error-desc" hidden></p>
+    </div>
 
     <a href="atlas://" class="btn btn-primary">Open Atlas</a>
     <a href="/" class="btn btn-secondary">Visit atlasfit.app</a>
 
-    <p class="hint">Don't have the app yet? <a href="/beta.html" style="color: var(--text-secondary); text-decoration: underline;">Join the beta</a>. Need a hand? <a href="mailto:support@atlasfit.app" style="color: var(--text-secondary); text-decoration: underline;">support@atlasfit.app</a></p>
+    <p class="hint">Don't have the app yet? <a href="/beta.html">Join the beta</a>. Need a hand? <a href="mailto:support@atlasfit.app">support@atlasfit.app</a></p>
   </div>
+
+  <script>
+    (function () {
+      var hash = location.hash.replace(/^#/, '');
+      var frag = new URLSearchParams(hash);
+      var query = new URLSearchParams(location.search);
+      var get = function (key) { return frag.get(key) || query.get(key) || ''; };
+
+      var code = get('error_code');
+      var error = get('error');
+      var desc = get('error_description');
+
+      // Drop tokens (on success) or error params (on failure) from the address bar and history.
+      if (hash || location.search) {
+        try { history.replaceState(null, '', location.pathname); } catch (e) {}
+      }
+
+      if (!code && !error) return;
+
+      var expired = code === 'otp_expired';
+      document.getElementById('state-success').hidden = true;
+      document.getElementById('state-error').hidden = false;
+
+      if (!expired) {
+        document.getElementById('error-badge').textContent = 'Link didn’t work';
+        var title = document.getElementById('error-title');
+        title.textContent = 'That link ';
+        var grad = document.createElement('span');
+        grad.className = 'grad';
+        grad.textContent = 'didn’t work';
+        title.appendChild(grad);
+        document.getElementById('error-sub').textContent =
+          'Open the Atlas app and tap Resend to get a fresh link. If it keeps happening, email support and we’ll sort it out.';
+      }
+
+      if (desc) {
+        var descEl = document.getElementById('error-desc');
+        descEl.textContent = desc;
+        descEl.hidden = false;
+      }
+
+      document.title = (expired ? 'Link expired' : 'Link didn’t work') + ' · Atlas';
+    })();
+  </script>
 </body>
 </html>
