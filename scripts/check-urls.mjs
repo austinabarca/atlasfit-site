@@ -108,7 +108,8 @@ function redirectProblem(res, locationOk, expected) {
 
 await check('/get on iPhone', async () => {
   const res = await getAs('/get?src=check-ios', UA.iphone);
-  return redirectProblem(res, (l) => l.startsWith(APP_STORE), `to start with ${APP_STORE}`);
+  const expected = `${APP_STORE}?pt=128689965&ct=check-ios&mt=8`;
+  return redirectProblem(res, (l) => l === expected, expected);
 });
 
 await check('/get on Android', async () => {
@@ -150,6 +151,7 @@ await check('/story', async () => {
   if (!body.includes('noindex')) return 'missing noindex';
   const srcInput = body.match(/<input[^>]*name="src"[^>]*>/)?.[0] ?? '';
   if (!srcInput.includes('value="check-story"')) return 'hidden src field does not carry the ad name';
+  if (!/<input[^>]*name="anonymous"/.test(body)) return 'missing the anonymous checkbox';
 });
 
 const summary = failures ? `\n${failures} check(s) failed` : '\nAll checks passed';

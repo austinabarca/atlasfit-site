@@ -450,4 +450,32 @@ Expected: every line passes.
 
 Scan each finished ad's QR from about two metres, on an iPhone and an Android phone, on a real Crunch screen. Then confirm the scans appear in Vercel Analytics under the right `src`.
 
+---
+
+### Task 8: Vendor form (spec Phase 3b, before 2026-11-27)
+
+**Files:**
+- Modify: `public/vendors.html:796`, `:877`, `:932`
+
+- [ ] **Step 1 (owner): Supply the values**
+
+A new Formspree form for vendor applications and its endpoint. The Google Form link, or the decision to remove both Google Form buttons.
+
+- [ ] **Step 2: Replace the placeholders**
+
+Line 877: form `action` becomes the vendor endpoint. Lines 796 and 932: `href` becomes the Google Form link, or the two buttons (and the "Prefer a Google Form?" text beside the second) are removed. Remove the three `<!-- TODO -->` comments. Nothing else on the page changes.
+
+- [ ] **Step 3: Verify**
+
+Run: `grep -n "YOUR_" public/vendors.html`
+Expected: no output.
+
+After deploy, submit a test application on `/vendors` and confirm it arrives in Formspree.
+
+- [ ] **Step 4: Commit**
+
+`git commit -m "Wire up the vendor application form"`
+
+---
+
 **Rollback before ads are live:** in Namecheap, restore the GitHub Pages records, then re-add the custom domain in GitHub Pages. **After ads are live:** do not roll back DNS, since `/get` and `/story` only exist on Vercel. Use Vercel → Deployments → Promote on the last good deployment.

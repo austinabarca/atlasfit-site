@@ -54,12 +54,21 @@ Astro.response.headers.set('Cache-Control', 'no-store');
       <span>I consent to my story being shared by Atlas. We'll check with you first.</span>
     </label>
 
+    <label class="check">
+      <input type="checkbox" name="anonymous" value="yes" />
+      <span>I want to submit this anonymously. We'll leave your name off if we share it.</span>
+    </label>
+
     <button type="submit" class="btn btn-primary" id="storySubmit">Share my story</button>
     <p class="form-error hide" id="storyError" role="alert"></p>
     <p class="hint">See our <a href="/privacy">Privacy Policy</a>.</p>
   </form>
 
   <div id="storyThanks" class="hide">
+    <svg class="thanks-check" viewBox="0 0 52 52" aria-hidden="true">
+      <circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" stroke-width="3" />
+      <path d="M15 27l8 8 14-16" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
     <p class="sub">Thank you. We read every story, and we'll be in touch before we share yours.</p>
     <a href="/get?src=story-page" class="btn btn-primary">Get Atlas</a>
   </div>
@@ -92,6 +101,10 @@ Astro.response.headers.set('Cache-Control', 'no-store');
   #storySubmit { margin-top: 10px; }
   .form-error { font-size: 14px; color: var(--accent-red-light); text-align: center; line-height: 1.5; }
   .story-form .hint { text-align: center; }
+  .thanks-check {
+    display: block; width: 64px; height: 64px; margin: 8px auto 24px;
+    color: #22C55E;
+  }
 </style>
 
 <script is:inline>

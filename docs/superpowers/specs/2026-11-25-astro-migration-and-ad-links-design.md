@@ -190,6 +190,9 @@ pass.
   - Checkbox: "I am 16 or older" (required)
   - Checkbox: "I consent to my story being shared by Atlas. We'll check with
     you first." (required)
+  - Checkbox: "I want to submit this anonymously. We'll leave your name off
+    if we share it." (optional, sent to Formspree as `anonymous: yes`)
+- The thank-you state shows a green checkmark above the message.
   - Hidden `src`, copied from the query string
 - A link to the existing privacy policy sits under the form. The policy text
   itself is not changed by this work.
@@ -286,6 +289,30 @@ iPhone and an Android phone, on a real Crunch screen, before the ads go live.
 **What this phase teaches:** DNS, domains and certificates, and how to cut
 over with a way back.
 
+### Phase 3b: Vendor form (before the ads go live on 2026-11-27)
+
+Added 2026-11-25 at the owner's request. The vendors page still carries its
+launch placeholders, so nothing on it can be submitted. This pre-dates the
+migration and is live on atlasfit.app today.
+
+- Both "Google Form" buttons point at `YOUR_GOOGLE_FORM_LINK`
+  (`vendors.html` lines 796 and 932).
+- The application form posts to `https://formspree.io/f/YOUR_VENDOR_FORM_ID`
+  (line 877), so every vendor application fails.
+
+Work:
+
+- Owner creates a Formspree form for vendor applications and supplies the
+  endpoint.
+- Owner supplies the Google Form link, or decides to remove the two Google
+  Form buttons.
+- The placeholders in `public/vendors.html` are replaced. This is the one
+  permitted edit to a legacy page before Phase 4. Nothing else on the page
+  changes.
+
+**Check:** a test application submitted on atlasfit.app/vendors arrives in
+Formspree, and each Google Form button either opens the form or is gone.
+
 ### Phase 4: Convert the pages
 
 - Build one shared layout: document head, SEO tags, nav and footer. The
@@ -309,18 +336,6 @@ over with a way back.
 - Two content fixes ride along, since Android is live: replace the "Google
   Play coming soon" copy on `index` and `support`, and make the Play buttons
   real links.
-
-- **Vendors page has dead links (found 2026-11-25, pre-dates the migration
-  and is live on atlasfit.app today).** `vendors.html` still carries its
-  launch placeholders, so nothing on the page can actually be submitted:
-  - both "Google Form" buttons point at `YOUR_GOOGLE_FORM_LINK`
-    (lines 796 and 932),
-  - the application form posts to `https://formspree.io/f/YOUR_VENDOR_FORM_ID`
-    (line 877), so every vendor application fails.
-
-  Fix when the vendors page is converted, or sooner as a one-off. Needs from
-  the owner: a Formspree vendor form endpoint, and either the Google Form
-  link or a decision to remove those two buttons.
 
 **Check, per page:** the page body matches the original side by side at
 phone and desktop width, the nav and footer are as listed above, and its URL
@@ -356,7 +371,9 @@ These are filled in during Phase 0.
 |------|-------|
 | Vercel plan and team | paid plan, owner setting up |
 | DNS provider for atlasfit.app | Namecheap, owner has access |
-| Formspree story form endpoint | needed before Phase 3 cutover |
-| App Store provider token (`pt`) | after launch; steps to be provided to the owner |
+| Formspree story form endpoint | `https://formspree.io/f/maeovlqa` |
+| Formspree vendor form endpoint | needed for Phase 3b |
+| Google Form link for vendors, or decision to remove the buttons | needed for Phase 3b |
+| App Store provider token (`pt`) | `128689965` |
 | Google Play URL confirmed | `https://play.google.com/store/apps/details?id=app.atlasfit.mobile` (confirmed; the `hl=en_US` part is left off so the store uses the phone's language) |
 | Ad `src` names | from the designer; not blocking |
