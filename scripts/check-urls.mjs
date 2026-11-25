@@ -84,5 +84,57 @@ await check('/atlas-qr-beta.png', async () => {
   if (type !== 'image/png') return `content-type "${type}"`;
 });
 
-console.log(failures ? `\n${failures} check(s) failed` : '\nAll checks passed');
+// --- /get smart link ---
+
+const UA = {
+  iphone: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1',
+  android: 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 Chrome/130.0 Mobile Safari/537.36',
+  mac: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15',
+};
+const APP_STORE = 'https://apps.apple.com/us/app/atlas-social-and-fitness/id6760980147';
+const PLAY = 'https://play.google.com/store/apps/details?id=app.atlasfit.mobile';
+const playCampaign = (src) => `${PLAY}&referrer=utm_source%3Dcrunch%26utm_medium%3Dqr%26utm_campaign%3D${src}`;
+
+const getAs = (path, userAgent) =>
+  get(path, { redirect: 'manual', headers: { 'user-agent': userAgent } });
+
+function redirectProblem(res, locationOk, expected) {
+  if (res.status !== 302) return `status ${res.status}, expected 302`;
+  const location = res.headers.get('location') ?? '';
+  if (!locationOk(location)) return `location "${location}", expected ${expected}`;
+  const cache = res.headers.get('cache-control') ?? '';
+  if (!cache.includes('no-store')) return `cache-control "${cache}"`;
+}
+
+await check('/get on iPhone', async () => {
+  const res = await getAs('/get?src=check-ios', UA.iphone);
+  return redirectProblem(res, (l) => l.startsWith(APP_STORE), `to start with ${APP_STORE}`);
+});
+
+await check('/get on Android', async () => {
+  const res = await getAs('/get?src=check-android', UA.android);
+  const expected = playCampaign('check-android');
+  return redirectProblem(res, (l) => l === expected, expected);
+});
+
+await check('/get on desktop', async () => {
+  const res = await getAs('/get?src=check-desktop', UA.mac);
+  if (res.status !== 200) return `status ${res.status}`;
+  const body = (await res.text()).replaceAll('&amp;', '&').replaceAll('&#38;', '&');
+  if (!body.includes(APP_STORE)) return 'missing App Store link';
+  if (!body.includes(playCampaign('check-desktop'))) return 'missing Play link with campaign';
+  if (!body.includes('noindex')) return 'missing noindex';
+});
+
+await check('/get with no user-agent', async () => {
+  const res = await getAs('/get', '');
+  if (res.status !== 200) return `status ${res.status}`;
+});
+
+await check('/get with a malformed src', async () => {
+  const res = await getAs('/get?src=A%26referrer%3Dx', UA.android);
+  return redirectProblem(res, (l) => l.endsWith('utm_campaign%3Dunknown'), 'to end with utm_campaign%3Dunknown');
+});
+
+console.log(failures ?`\n${failures} check(s) failed` : '\nAll checks passed');
 process.exit(failures ? 1 : 0);
