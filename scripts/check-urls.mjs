@@ -93,7 +93,7 @@ const UA = {
 };
 const APP_STORE = 'https://apps.apple.com/us/app/atlas-social-and-fitness/id6760980147';
 const PLAY = 'https://play.google.com/store/apps/details?id=app.atlasfit.mobile';
-const playCampaign = (src) => `${PLAY}&referrer=utm_source%3Dcrunch%26utm_medium%3Dqr%26utm_campaign%3D${src}`;
+const playCampaign = (src) => `${PLAY}&referrer=utm_source%3Datlasfit%26utm_medium%3Dad-link%26utm_campaign%3D${src}`;
 
 const getAs = (path, userAgent) =>
   get(path, { redirect: 'manual', headers: { 'user-agent': userAgent } });
@@ -152,6 +152,7 @@ await check('/story', async () => {
   const srcInput = body.match(/<input[^>]*name="src"[^>]*>/)?.[0] ?? '';
   if (!srcInput.includes('value="check-story"')) return 'hidden src field does not carry the ad name';
   if (!/<input[^>]*name="anonymous"/.test(body)) return 'missing the anonymous checkbox';
+  if (!body.includes('href="/get?src=check-story"')) return 'Get Atlas link does not carry the ad name';
 });
 
 const summary = failures ? `\n${failures} check(s) failed` : '\nAll checks passed';

@@ -65,6 +65,13 @@ describe('trackScan', () => {
     expect(() => trackScan(event, req)).not.toThrow();
   });
 
+  // Link-preview bots and uptime checkers send HEAD; a person's phone sends GET.
+  it.each(['HEAD', 'POST'])('does not count a %s request', (method) => {
+    trackScan(event, new Request('https://atlasfit.app/get?src=crunch-bear', { method }));
+    expect(track).not.toHaveBeenCalled();
+    expect(console.log).not.toHaveBeenCalled();
+  });
+
   it('logs one JSON line per scan', () => {
     trackScan(event, req);
     expect(console.log).toHaveBeenCalledWith(

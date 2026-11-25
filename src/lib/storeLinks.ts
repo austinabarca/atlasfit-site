@@ -24,7 +24,8 @@ export function storeUrl(
   providerToken: string = APP_STORE_PROVIDER_TOKEN,
 ): string {
   if (platform === 'android') {
-    const referrer = `utm_source=crunch&utm_medium=qr&utm_campaign=${src}`;
+    // Source and medium are fixed for every ad link; the ad name is the campaign.
+    const referrer = `utm_source=atlasfit&utm_medium=ad-link&utm_campaign=${src}`;
     return `${PLAY_URL}&referrer=${encodeURIComponent(referrer)}`;
   }
   if (!providerToken) return APP_STORE_URL;

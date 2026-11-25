@@ -9,7 +9,9 @@ How to make a trackable link or QR code for any Atlas ad, flyer, or post.
 | Getting people to download Atlas | `https://atlasfit.app/get?src=<name>` |
 | Collecting "What do you train for?" stories | `https://atlasfit.app/story?src=<name>` |
 
-`/get` sends iPhones to the App Store and Android phones to Google Play. Laptops and tablets see a page with both store buttons.
+`/get` sends iPhones to the App Store and Android phones and tablets to Google Play. Laptops and iPads see a page with both store buttons.
+
+Keep the link itself in lowercase exactly as written here. `/GET` or `/Story` will not work.
 
 ## The `src` name
 
@@ -53,8 +55,14 @@ Once a name is printed or on a screen, do not rename it. A renamed ad shows up a
 
 **Installs per ad:**
 
-- iPhone: App Store Connect → Analytics → Campaigns. The campaign name is the `src`.
-- Android: Play Console → Grow → Store performance → Store analysis → the traffic source / UTM breakdown. The campaign name is the `src`.
+- iPhone: App Store Connect → Analytics → Campaigns. The campaign name is the `src`. Apple hides a campaign until it has a minimum number of installs, so an empty report in the first days is expected.
+- Android: Play Console → Grow → Store performance → Store analysis → the traffic source / UTM breakdown. The campaign name is the `src`. The source always reads `atlasfit` and the medium `ad-link`, whichever ad it was.
+
+## Keeping the counts working
+
+- Scan counting depends on Vercel's Deployment Protection ("Vercel Authentication") staying off for the project. If it is turned back on, links keep working but scans stop being counted, with no error shown.
+- Scan counts are slightly generous: an app that loads a preview of the link counts as a scan.
+- Check the Formspree plan's monthly submission limit before a campaign. Stories sent after the limit is reached are not delivered.
 
 Scans show how many people an ad got to act. Installs show how many of them followed through. An ad with many scans and few installs is getting attention but losing people at the store.
 
