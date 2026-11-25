@@ -24,11 +24,22 @@ describe('trackScan', () => {
     expect(waitUntil).toHaveBeenCalledTimes(1);
   });
 
-  it('sends the event name and properties', () => {
+  // The Vercel plan allows two properties per event, so the route is carried
+  // by the event name.
+  it('sends /get scans as "scan" with two properties', () => {
     trackScan(event, req);
     expect(track).toHaveBeenCalledWith(
       'scan',
-      { route: 'get', src: 'crunch-bear', platform: 'ios' },
+      { src: 'crunch-bear', platform: 'ios' },
+      expect.anything(),
+    );
+  });
+
+  it('sends /story scans as "story_scan" with two properties', () => {
+    trackScan({ route: 'story', src: 'crunch-story', platform: 'android' }, req);
+    expect(track).toHaveBeenCalledWith(
+      'story_scan',
+      { src: 'crunch-story', platform: 'android' },
       expect.anything(),
     );
   });

@@ -8,4 +8,4 @@ export const PLAY_URL = 'https://play.google.com/store/apps/details?id=app.atlas
 // links go out without campaign tags.
 export const APP_STORE_PROVIDER_TOKEN = '';
 
-export const STORY_FORM_ENDPOINT = 'https://formspree.io/f/YOUR_STORY_FORM_ID';
+export const STORY_FORM_ENDPOINT = 'https://formspree.io/f/maeovlqa';
