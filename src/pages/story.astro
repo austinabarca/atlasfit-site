@@ -1,0 +1,151 @@
+---
+// Landing page for the "Share your story" ad. Counts the scan, then shows a
+// short form that posts to Formspree.
+import CardPage from '../layouts/CardPage.astro';
+import { STORY_FORM_ENDPOINT } from '../config/links';
+import { detectPlatform, sanitizeSrc } from '../lib/storeLinks';
+import { trackScan } from '../lib/trackScan';
+
+export const prerender = false;
+
+const src = sanitizeSrc(Astro.url.searchParams.get('src'));
+const platform = detectPlatform(Astro.request.headers.get('user-agent'));
+trackScan({ route: 'story', src, platform }, Astro.request);
+Astro.response.headers.set('Cache-Control', 'no-store');
+---
+<CardPage title="Share Your Story | Atlas">
+  <h1>What do you <span class="grad">train for?</span></h1>
+
+  <div id="storyIntro">
+    <p class="sub">
+      Tell us what drives you: how you started, something that changed you, or who you're
+      working to become. Funny, inspiring, raw, or a single word. It all counts. Your story
+      could be featured in the Atlas community, and we'll always check with you before we
+      share it. Send a photo to <a href="mailto:social@atlasfit.app">social@atlasfit.app</a>{' '}
+      if you want to add one with your story.
+    </p>
+  </div>
+
+  <form id="storyForm" class="story-form" action={STORY_FORM_ENDPOINT} method="POST">
+    <input type="hidden" name="src" value={src} />
+
+    <label class="field">
+      <span>First name</span>
+      <input type="text" name="first_name" required autocomplete="given-name" />
+    </label>
+
+    <label class="field">
+      <span>Email or Instagram handle</span>
+      <input type="text" name="contact" required autocapitalize="none" autocorrect="off" />
+    </label>
+
+    <label class="field">
+      <span>Your story</span>
+      <textarea name="story" required maxlength="2000" rows="5"></textarea>
+    </label>
+
+    <label class="check">
+      <input type="checkbox" name="age_16_plus" value="yes" required />
+      <span>I am 16 or older</span>
+    </label>
+
+    <label class="check">
+      <input type="checkbox" name="consent_share" value="yes" required />
+      <span>I consent to my story being shared by Atlas. We'll check with you first.</span>
+    </label>
+
+    <label class="check">
+      <input type="checkbox" name="anonymous" value="yes" />
+      <span>I want to submit this anonymously. We'll leave your name off if we share it.</span>
+    </label>
+
+    <button type="submit" class="btn btn-primary" id="storySubmit">Share my story</button>
+    <p class="form-error hide" id="storyError" role="alert"></p>
+    <p class="hint">See our <a href="/privacy">Privacy Policy</a>.</p>
+  </form>
+
+  <div id="storyThanks" class="hide">
+    <svg class="thanks-check" viewBox="0 0 52 52" aria-hidden="true">
+      <circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" stroke-width="3" />
+      <path d="M15 27l8 8 14-16" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <p class="sub">Thank you. We read every story, and we'll be in touch before we share yours.</p>
+    <a href="/get?src=story-page" class="btn btn-primary">Get Atlas</a>
+  </div>
+</CardPage>
+
+<style>
+  .story-form { text-align: left; }
+  .field { display: block; margin-bottom: 16px; }
+  .field span {
+    display: block; font-size: 13px; font-weight: 600;
+    color: var(--text-secondary); margin-bottom: 6px;
+  }
+  .field input, .field textarea {
+    width: 100%; padding: 14px 16px; border-radius: 12px;
+    border: 1px solid var(--border-light); background: var(--bg-secondary);
+    color: var(--text-primary); font-family: inherit; font-size: 16px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .field textarea { resize: vertical; line-height: 1.5; }
+  .field input:focus, .field textarea:focus { border-color: var(--accent-red-light); }
+  .check {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; color: var(--text-secondary); line-height: 1.45;
+    margin-bottom: 14px; cursor: pointer;
+  }
+  .check input {
+    width: 18px; height: 18px; margin-top: 1px; flex-shrink: 0;
+    accent-color: var(--accent-red);
+  }
+  #storySubmit { margin-top: 10px; }
+  .form-error { font-size: 14px; color: var(--accent-red-light); text-align: center; line-height: 1.5; }
+  .story-form .hint { text-align: center; }
+  .thanks-check {
+    display: block; width: 64px; height: 64px; margin: 8px auto 24px;
+    color: #22C55E;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var form = document.getElementById('storyForm');
+    var button = document.getElementById('storySubmit');
+    var error = document.getElementById('storyError');
+    var buttonText = button.textContent;
+
+    function fail(message) {
+      // The form keeps what was typed so the person can retry.
+      button.textContent = buttonText;
+      button.disabled = false;
+      error.textContent = message;
+      error.classList.remove('hide');
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      if (button.disabled) return;
+      button.textContent = 'Sending...';
+      button.disabled = true;
+      error.classList.add('hide');
+
+      try {
+        var res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          form.classList.add('hide');
+          document.getElementById('storyIntro').classList.add('hide');
+          document.getElementById('storyThanks').classList.remove('hide');
+        } else {
+          fail("Something went wrong and your story wasn't sent. Please try again.");
+        }
+      } catch (err) {
+        fail("We couldn't reach the server. Check your connection and try again.");
+      }
+    });
+  })();
+</script>
