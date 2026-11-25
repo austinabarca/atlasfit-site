@@ -35,7 +35,7 @@ describe('detectPlatform', () => {
 describe('storeUrl', () => {
   it('android carries the campaign', () =>
     expect(storeUrl('android', 'crunch-bear')).toBe(
-      'https://play.google.com/store/apps/details?id=app.atlasfit.mobile&referrer=utm_source%3Dcrunch%26utm_medium%3Dqr%26utm_campaign%3Dcrunch-bear',
+      'https://play.google.com/store/apps/details?id=app.atlasfit.mobile&referrer=utm_source%3Datlasfit%26utm_medium%3Dad-link%26utm_campaign%3Dcrunch-bear',
     ));
   it('ios without a token is the bare listing', () =>
     expect(storeUrl('ios', 'crunch-bear', '')).toBe(

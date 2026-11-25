@@ -21,7 +21,7 @@ This plan covers spec Phases 1 to 3. Phases 4 and 5 (page conversion, clean-up) 
 - `src` accepted form: lowercase letters, digits, hyphens, 1 to 40 characters. Anything else is `unknown`. (Plan decision: input is trimmed and lowercased before the check, so `Crunch-Bear` counts as `crunch-bear`.)
 - App Store URL: `https://apps.apple.com/us/app/atlas-social-and-fitness/id6760980147`
 - Play URL: `https://play.google.com/store/apps/details?id=app.atlasfit.mobile`
-- Play campaign tag: `&referrer=utm_source%3Dcrunch%26utm_medium%3Dqr%26utm_campaign%3D<src>`
+- Play campaign tag: `&referrer=utm_source%3Datlasfit%26utm_medium%3Dad-link%26utm_campaign%3D<src>`
 - App Store campaign tag: `?pt=<token>&ct=<src>&mt=8`, omitted entirely while the token is empty.
 - `/get`, `/story` and the not-found page carry `<meta name="robots" content="noindex">`.
 - New pages use the visual style of the existing `404.html` card (dark `#0A0A0A`, Inter, red/gold accents).
@@ -204,7 +204,7 @@ describe('detectPlatform', () => {
 describe('storeUrl', () => {
   it('android carries the campaign', () =>
     expect(storeUrl('android', 'crunch-bear')).toBe(
-      'https://play.google.com/store/apps/details?id=app.atlasfit.mobile&referrer=utm_source%3Dcrunch%26utm_medium%3Dqr%26utm_campaign%3Dcrunch-bear'));
+      'https://play.google.com/store/apps/details?id=app.atlasfit.mobile&referrer=utm_source%3Datlasfit%26utm_medium%3Dad-link%26utm_campaign%3Dcrunch-bear'));
   it('ios without a token is the bare listing', () =>
     expect(storeUrl('ios', 'crunch-bear', '')).toBe(
       'https://apps.apple.com/us/app/atlas-social-and-fitness/id6760980147'));

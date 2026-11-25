@@ -523,57 +523,6 @@
       margin-top: 16px;
     }
 
-    /* Google Form alternate */
-    .form-alt {
-      position: relative;
-      z-index: 1;
-      max-width: 720px;
-      margin: 24px auto 0;
-      text-align: center;
-    }
-
-    .form-alt .divider {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      color: var(--text-tertiary);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .form-alt .divider::before,
-    .form-alt .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border-default);
-    }
-
-    .btn-gform {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
-      border-radius: 14px;
-      border: 1px solid var(--border-light);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--text-primary);
-      font-size: 15px;
-      font-weight: 600;
-      transition: transform 0.2s, background 0.2s, border-color 0.2s;
-    }
-
-    .btn-gform:hover {
-      transform: scale(1.03);
-      background: rgba(255, 255, 255, 0.06);
-      border-color: var(--accent-violet);
-    }
-
-    .btn-gform svg { width: 18px; height: 18px; }
-
     /* Success state */
     .form-success {
       display: none;
@@ -611,7 +560,6 @@
     }
 
     .apply-card.hidden { display: none; }
-    .form-alt.hidden { display: none; }
 
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -792,11 +740,6 @@
         Apply Now
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
-      <!-- TODO: replace href with your Google Form link -->
-      <a href="YOUR_GOOGLE_FORM_LINK" target="_blank" rel="noopener" class="btn-secondary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="12" y2="11"/></svg>
-        Open Google Form
-      </a>
     </div>
   </section>
 
@@ -844,7 +787,7 @@
       <div class="step-card">
         <div class="card-number">01</div>
         <h3>Apply</h3>
-        <p>Fill out the form below or the Google Form. Tell us about your brand and what you sell.</p>
+        <p>Fill out the form below. Tell us about your brand and what you sell.</p>
       </div>
       <div class="step-card">
         <div class="card-number">02</div>
@@ -866,8 +809,7 @@
       <p class="section-label">Apply</p>
       <h2 class="section-title">Become a vendor.</h2>
       <p class="section-desc">
-        Fill out the form and our team will be in touch. Prefer Google Forms?
-        There's a link at the bottom.
+        Fill out the form and our team will be in touch.
       </p>
     </div>
 
@@ -924,15 +866,6 @@
       <p>Thanks for applying to become an Atlas vendor. Our team will review your details and reach out by email soon.</p>
     </div>
 
-    <!-- Google Form alternate -->
-    <div class="form-alt" id="formAlt">
-      <div class="divider">Or</div>
-      <!-- TODO: replace href with your Google Form link -->
-      <a href="YOUR_GOOGLE_FORM_LINK" target="_blank" rel="noopener" class="btn-gform">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="12" y2="11"/></svg>
-        Apply with our Google Form
-      </a>
-    </div>
   </section>
 
   <!-- ─── FOOTER ─── -->
@@ -975,7 +908,6 @@
     const form = document.getElementById('vendorForm');
     const applyCard = document.getElementById('applyCard');
     const successMsg = document.getElementById('vendorSuccess');
-    const formAlt = document.getElementById('formAlt');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -993,7 +925,6 @@
 
         if (res.ok) {
           applyCard.classList.add('hidden');
-          formAlt.classList.add('hidden');
           successMsg.classList.add('show');
           successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {

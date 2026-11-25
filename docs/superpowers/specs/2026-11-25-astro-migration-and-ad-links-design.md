@@ -149,7 +149,7 @@ pass.
     is not configured yet, the App Store link goes out without campaign
     tags. iOS installs are then unattributed until the token is added, and
     scans are still counted.
-  - Google Play: `&referrer=utm_source%3Dcrunch%26utm_medium%3Dqr%26utm_campaign%3D<src>`
+  - Google Play: `&referrer=utm_source%3Datlasfit%26utm_medium%3Dad-link%26utm_campaign%3D<src>`
 - Store URLs and the provider token live in one config file, so a changed
   listing is a one-line edit and every QR on a screen keeps working.
 

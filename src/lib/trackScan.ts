@@ -18,6 +18,8 @@ const EVENT_NAME = { get: 'scan', story: 'story_scan' } as const;
  */
 export function trackScan(event: ScanEvent, request: Request): void {
   try {
+    // Only a page load is a scan: link-preview bots and uptime checks send HEAD.
+    if (request.method !== 'GET') return;
     // Also visible in Vercel's function logs if analytics is misconfigured.
     console.log(JSON.stringify({ type: 'scan', ...event }));
     const { route, src, platform } = event;
