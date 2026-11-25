@@ -310,6 +310,18 @@ over with a way back.
   Play coming soon" copy on `index` and `support`, and make the Play buttons
   real links.
 
+- **Vendors page has dead links (found 2026-11-25, pre-dates the migration
+  and is live on atlasfit.app today).** `vendors.html` still carries its
+  launch placeholders, so nothing on the page can actually be submitted:
+  - both "Google Form" buttons point at `YOUR_GOOGLE_FORM_LINK`
+    (lines 796 and 932),
+  - the application form posts to `https://formspree.io/f/YOUR_VENDOR_FORM_ID`
+    (line 877), so every vendor application fails.
+
+  Fix when the vendors page is converted, or sooner as a one-off. Needs from
+  the owner: a Formspree vendor form endpoint, and either the Google Form
+  link or a decision to remove those two buttons.
+
 **Check, per page:** the page body matches the original side by side at
 phone and desktop width, the nav and footer are as listed above, and its URL
 contract row still passes.
