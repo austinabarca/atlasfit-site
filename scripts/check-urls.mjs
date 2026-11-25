@@ -136,5 +136,23 @@ await check('/get with a malformed src', async () => {
   return redirectProblem(res, (l) => l.endsWith('utm_campaign%3Dunknown'), 'to end with utm_campaign%3Dunknown');
 });
 
-console.log(failures ?`\n${failures} check(s) failed` : '\nAll checks passed');
+// --- /story form ---
+
+await check('/story', async () => {
+  const res = await get('/story?src=check-story');
+  if (res.status !== 200) return `status ${res.status}`;
+  const body = await res.text();
+  // The heading wraps part of its text in a span, so compare against visible text.
+  const visible = body.replace(/<[^>]+>/g, '');
+  for (const text of ['What do you train for?', 'social@atlasfit.app']) {
+    if (!visible.includes(text)) return `missing "${text}"`;
+  }
+  if (!body.includes('noindex')) return 'missing noindex';
+  const srcInput = body.match(/<input[^>]*name="src"[^>]*>/)?.[0] ?? '';
+  if (!srcInput.includes('value="check-story"')) return 'hidden src field does not carry the ad name';
+});
+
+const summary = failures ? `\n${failures} check(s) failed` : '\nAll checks passed';
+console.log(summary);
 process.exit(failures ? 1 : 0);
+
